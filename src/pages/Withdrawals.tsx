@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRole } from '../context/RoleContext';
-import { CreditCard, Landmark } from 'lucide-react';
+import { CreditCard } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const WithdrawalsPage: React.FC = () => {

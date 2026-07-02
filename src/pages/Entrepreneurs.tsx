@@ -7,7 +7,7 @@ import {
   ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
 import {
-  LayoutDashboard, FileText, CheckCircle, Users, BookOpen, Shield,
+  FileText, CheckCircle, Users, BookOpen, Shield,
   Wallet, Percent, Users2, Target, TrendingUp, Award, BarChart3,
   Briefcase, Search, Phone, MessageCircle, Download, Copy,
   UserCheck, XCircle, AlertCircle, Plus, X, MapPin, Store,

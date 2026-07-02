@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRole } from "../context/RoleContext";
 import {
-  Map,
   Compass,
   MapPin,
   Building,
@@ -25,7 +24,6 @@ export const TerritoryPage: React.FC = () => {
   const [territoryDetails, setTerritoryDetails] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedMandal, setSelectedMandal] = useState("");
   const [expandedDistricts, setExpandedDistricts] = useState<Record<string, boolean>>({});
 
   const token =
@@ -173,8 +171,6 @@ export const TerritoryPage: React.FC = () => {
                 value={selectedDistrict}
                 onChange={(e) => {
                   setSelectedDistrict(e.target.value);
-                  const firstMandal = territoryDetails?.mandals?.find((m: any) => m.district === e.target.value)?.name || "";
-                  setSelectedMandal(firstMandal);
                 }}
                 className="px-3.5 py-2 rounded-xl text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 focus:outline-none text-slate-700 dark:text-slate-200"
               >

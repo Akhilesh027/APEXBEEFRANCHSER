@@ -108,7 +108,6 @@ export const Dashboard: React.FC = () => {
   const pendingBalance = getNumber(analytics?.pendingBalance);
   const referralEarned = getNumber(analytics?.referralCommission);
   const mlmEarned = getNumber(analytics?.mlmCommission);
-  const franchiseEarned = getNumber(analytics?.franchiseCommission);
 
   const statsCards = useMemo(() => {
     if (role === 'entrepreneur') return [];

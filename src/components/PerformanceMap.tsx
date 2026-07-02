@@ -4,24 +4,7 @@ import type { NodeMetrics } from '../types';
 import { Map, Info, Compass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Static performance node data for the visual map grid
-// Labels are overridden dynamically based on the partner's state/district
-const districtPerformance: NodeMetrics[] = [
-  { id: 'd1', name: 'Nellore', type: 'district', revenue: 2450000, orders: 1240, growth: 18, performance: 'high', manager: 'Ravi Kumar', phone: '+91 98765 11001' },
-  { id: 'd2', name: 'Guntur', type: 'district', revenue: 1980000, orders: 980, growth: 12, performance: 'high', manager: 'Suresh Babu', phone: '+91 98765 11002' },
-  { id: 'd3', name: 'Krishna', type: 'district', revenue: 1560000, orders: 820, growth: 8, performance: 'average', manager: 'Anand Rao', phone: '+91 98765 11003' },
-  { id: 'd4', name: 'Prakasam', type: 'district', revenue: 1120000, orders: 640, growth: 5, performance: 'average', manager: 'Venkateswara', phone: '+91 98765 11004' },
-  { id: 'd5', name: 'Chittoor', type: 'district', revenue: 870000, orders: 490, growth: -3, performance: 'low', manager: 'Nagarjuna', phone: '+91 98765 11005' },
-  { id: 'd6', name: 'Visakhapatnam', type: 'district', revenue: 780000, orders: 420, growth: -6, performance: 'low', manager: 'Prasad Varma', phone: '+91 98765 11006' },
-];
 
-const mandalPerformance: NodeMetrics[] = [
-  { id: 'm1', name: 'Kavali', type: 'mandal', revenue: 420000, orders: 310, growth: 15, performance: 'high', manager: 'Bhaskar Rao', phone: '+91 99001 22001' },
-  { id: 'm2', name: 'Nellore Rural', type: 'mandal', revenue: 380000, orders: 280, growth: 11, performance: 'high', manager: 'Sudhakar', phone: '+91 99001 22002' },
-  { id: 'm3', name: 'Atmakur', type: 'mandal', revenue: 290000, orders: 210, growth: 6, performance: 'average', manager: 'Ramesh', phone: '+91 99001 22003' },
-  { id: 'm4', name: 'Kovur', type: 'mandal', revenue: 210000, orders: 160, growth: 3, performance: 'average', manager: 'Srikanth', phone: '+91 99001 22004' },
-  { id: 'm5', name: 'Buchi Reddy Palem', type: 'mandal', revenue: 140000, orders: 110, growth: -4, performance: 'low', manager: 'Narender', phone: '+91 99001 22005' },
-];
 
 export const PerformanceMap: React.FC = () => {
   const { role, partner, subFranchises, vendors } = useRole();
@@ -63,7 +46,7 @@ export const PerformanceMap: React.FC = () => {
 
     // Mandal view has vendors under it
     return vendors.map((v, idx) => ({
-      id: v.id || v._id || `v-${idx}`,
+      id: v.id || `v-${idx}`,
       name: v.name,
       type: 'vendor',
       revenue: v.sales || 0,
