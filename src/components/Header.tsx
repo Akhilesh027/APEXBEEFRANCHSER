@@ -114,10 +114,10 @@ export const Header: React.FC = () => {
           {role === 'state'
             ? (partner.state || 'Andhra Pradesh')
             : role === 'district'
-            ? `${partner.district || 'SPSR Nellore'} District`
-            : role === 'mandal'
-            ? `${partner.mandal || 'Buchi Reddy Palem'} Mandal`
-            : `${currentEntrepreneur?.mandal || 'Buchi Reddy Palem'} Mandal`}
+              ? `${partner.district || 'SPSR Nellore'} District`
+              : role === 'mandal'
+                ? `${partner.mandal || 'Buchi Reddy Palem'} Mandal`
+                : `${currentEntrepreneur?.mandal || 'Buchi Reddy Palem'} Mandal`}
         </p>
       </div>
 
@@ -203,9 +203,8 @@ export const Header: React.FC = () => {
                         <div
                           key={notif.id}
                           onClick={() => handleNotificationClick(notif.id)}
-                          className={`p-3 rounded-xl hover:bg-slate-100/60 dark:hover:bg-slate-800/40 cursor-pointer transition-colors ${
-                            notif.unread ? 'bg-primary/5 dark:bg-primary/5' : ''
-                          }`}
+                          className={`p-3 rounded-xl hover:bg-slate-100/60 dark:hover:bg-slate-800/40 cursor-pointer transition-colors ${notif.unread ? 'bg-primary/5 dark:bg-primary/5' : ''
+                            }`}
                         >
                           <div className="flex items-start justify-between gap-2">
                             <span className={`text-xs font-bold ${notif.unread ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>
@@ -298,11 +297,10 @@ export const Header: React.FC = () => {
                       <button
                         key={r}
                         onClick={() => handleRoleSelect(r)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left text-xs font-semibold cursor-pointer transition-colors ${
-                          role === r
-                            ? 'bg-primary text-white'
-                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60'
-                        }`}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left text-xs font-semibold cursor-pointer transition-colors ${role === r
+                          ? 'bg-primary text-white'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60'
+                          }`}
                       >
                         <span className="capitalize">{r} Partner</span>
                         {role !== r && (

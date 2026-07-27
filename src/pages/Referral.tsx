@@ -112,11 +112,10 @@ export const ReferralPage: React.FC = () => {
     return (
       <div key={node._id} className="space-y-2 text-left">
         <div className="flex items-center gap-2">
-          <span className={`rounded-full ${
-            depth === 1 ? 'w-2 h-2 bg-violet-500' :
+          <span className={`rounded-full ${depth === 1 ? 'w-2 h-2 bg-violet-500' :
             depth === 2 ? 'w-1.5 h-1.5 bg-amber-500' :
-            'w-1 h-1 bg-indigo-500'
-          }`} />
+              'w-1 h-1 bg-indigo-500'
+            }`} />
           <span>Lvl {depth}: {node.name} ({node.referralCode || 'Customer'})</span>
         </div>
         {node.referrals && node.referrals.length > 0 && (
@@ -153,7 +152,7 @@ export const ReferralPage: React.FC = () => {
           <Share2 size={16} className="text-primary" />
           <span>My Partner Referral Link</span>
         </h3>
-        
+
         <div className="flex items-center gap-3">
           <input
             type="text"
@@ -205,13 +204,13 @@ export const ReferralPage: React.FC = () => {
         {/* Tree Visual */}
         <div className="lg:col-span-1 bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl space-y-4">
           <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-base text-left">Referral Downline Tree</h3>
-          
+
           <div className="p-4 bg-slate-50/50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/20 space-y-3 font-semibold text-xs text-slate-700 dark:text-slate-300 text-left">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-primary" />
               <span>You ({partner.name})</span>
             </div>
-            
+
             <div className="ml-4 border-l border-slate-200 dark:border-slate-800 pl-4 space-y-3">
               {network?.referrals && network.referrals.length > 0 ? (
                 network.referrals.map((child: any) => renderNetworkNode(child, 1))
@@ -227,17 +226,16 @@ export const ReferralPage: React.FC = () => {
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-850">
               <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-base">Referral Affiliates</h3>
-              
+
               <div className="flex bg-slate-100 dark:bg-slate-855 p-1 rounded-xl shrink-0">
                 {(['lvl1', 'lvl2', 'lvl3'] as const).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
-                      activeTab === tab
-                        ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
-                        : 'text-slate-500 dark:text-slate-400'
-                    }`}
+                    className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${activeTab === tab
+                      ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
+                      : 'text-slate-500 dark:text-slate-400'
+                      }`}
                   >
                     Level {tab === 'lvl1' ? '1' : tab === 'lvl2' ? '2' : '3'}
                   </button>

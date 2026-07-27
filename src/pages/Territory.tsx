@@ -52,7 +52,7 @@ export const TerritoryPage: React.FC = () => {
       const detailsData = await detailsRes.json();
       if (detailsRes.ok && detailsData.success) {
         setTerritoryDetails(detailsData);
-        
+
         // Auto-expand all districts by default for state view
         if (detailsData.level === "state" && detailsData.districts) {
           const initial: Record<string, boolean> = {};
@@ -80,7 +80,7 @@ export const TerritoryPage: React.FC = () => {
   const filteredDistricts = useMemo(() => {
     if (!territoryDetails?.districts) return [];
     if (!searchQuery) return territoryDetails.districts;
-    
+
     return territoryDetails.districts.filter((dist: string) => {
       const distMatches = dist.toLowerCase().includes(searchQuery.toLowerCase());
       const hasMatchingMandal = territoryDetails.mandals?.some(
@@ -237,8 +237,8 @@ export const TerritoryPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {filteredDistricts.map((district: string) => {
                 const distMandals = territoryDetails?.mandals?.filter((m: any) => m.district === district) || [];
-                const filteredMandals = distMandals.filter((m: any) => 
-                  m.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                const filteredMandals = distMandals.filter((m: any) =>
+                  m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                   district.toLowerCase().includes(searchQuery.toLowerCase())
                 );
                 const isExpanded = !!expandedDistricts[district];
@@ -505,18 +505,16 @@ export const TerritoryPage: React.FC = () => {
                           {ent.joiningDate}
                         </td>
                         <td className="py-4 px-4">
-                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                            ent.certificationLevel?.toLowerCase() === 'gold' ? 'bg-amber-500/10 text-amber-600' :
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${ent.certificationLevel?.toLowerCase() === 'gold' ? 'bg-amber-500/10 text-amber-600' :
                             ent.certificationLevel?.toLowerCase() === 'diamond' ? 'bg-blue-500/10 text-blue-600' :
-                            'bg-slate-500/10 text-slate-600'
-                          }`}>
+                              'bg-slate-500/10 text-slate-600'
+                            }`}>
                             {ent.certificationLevel || 'Gold'}
                           </span>
                         </td>
                         <td className="py-4 px-4">
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
-                            ent.status?.toLowerCase() === 'active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'
-                          }`}>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${ent.status?.toLowerCase() === 'active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'
+                            }`}>
                             {ent.status || 'Active'}
                           </span>
                         </td>

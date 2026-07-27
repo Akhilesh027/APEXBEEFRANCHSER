@@ -129,11 +129,10 @@ export const OrdersPage: React.FC = () => {
             <button
               key={s}
               onClick={() => setActiveStatus(s)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeStatus === s
-                  ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
-                  : 'text-slate-500 dark:text-slate-400'
-              }`}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeStatus === s
+                ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
+                : 'text-slate-500 dark:text-slate-400'
+                }`}
             >
               {s}
             </button>

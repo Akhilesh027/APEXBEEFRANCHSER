@@ -253,27 +253,24 @@ export const NetworkTree: React.FC<{ data?: any }> = ({ data }) => {
 
           <div
             onClick={() => setSelectedNode(node)}
-            className={`flex items-center gap-3 px-3 py-2 rounded-xl border transition-all cursor-pointer select-none ${
-              isSelected
-                ? "bg-primary text-white border-primary shadow-md shadow-primary/15"
-                : "bg-white/70 dark:bg-slate-800/40 border-slate-200/50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/80"
-            }`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-xl border transition-all cursor-pointer select-none ${isSelected
+              ? "bg-primary text-white border-primary shadow-md shadow-primary/15"
+              : "bg-white/70 dark:bg-slate-800/40 border-slate-200/50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/80"
+              }`}
           >
             {getIcon(node.type, isSelected)}
 
             <div className="flex flex-col">
               <span
-                className={`text-xs font-bold ${
-                  isSelected ? "text-white" : "text-slate-700 dark:text-slate-200"
-                }`}
+                className={`text-xs font-bold ${isSelected ? "text-white" : "text-slate-700 dark:text-slate-200"
+                  }`}
               >
                 {node.name}
               </span>
 
               <span
-                className={`text-[9px] uppercase font-bold leading-none mt-0.5 ${
-                  isSelected ? "text-blue-100" : "text-slate-400"
-                }`}
+                className={`text-[9px] uppercase font-bold leading-none mt-0.5 ${isSelected ? "text-blue-100" : "text-slate-400"
+                  }`}
               >
                 {node.type}
                 {node.franchiseCode ? ` • ${node.franchiseCode}` : ""}

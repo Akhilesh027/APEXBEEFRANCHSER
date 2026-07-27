@@ -153,11 +153,11 @@ export const EntrepreneursPage: React.FC = () => {
     fetch('https://server.apexbee.in/api/entrepreneur/training', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(data => { if (data.data || data.training) setEntrepreneurTrainingList(data.data || data.training || []); })
-      .catch(() => {});
+      .catch(() => { });
     fetch('https://server.apexbee.in/api/entrepreneur/leads', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(data => { if (data.data || data.leads) setLeads(data.data || data.leads || []); })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   // New lead form state

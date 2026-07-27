@@ -67,7 +67,7 @@ export const KYCPage: React.FC = () => {
         {/* Table */}
         <div className="lg:col-span-2 bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl space-y-4">
           <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-base">KYC Applications</h3>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
@@ -131,7 +131,7 @@ export const KYCPage: React.FC = () => {
                 {/* Verification Checkboxes */}
                 <div className="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/20 space-y-3">
                   <h5 className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">Required Audits</h5>
-                  
+
                   {/* PAN */}
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-slate-550 dark:text-slate-350">PAN Card Verify</span>

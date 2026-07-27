@@ -243,11 +243,10 @@ export const Commission: React.FC = () => {
                 <button
                   key={f}
                   onClick={() => setTimeFilter(f)}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold capitalize transition-all duration-150 cursor-pointer border-0 ${
-                    timeFilter === f
-                      ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
-                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
-                  }`}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold capitalize transition-all duration-150 cursor-pointer border-0 ${timeFilter === f
+                    ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
+                    }`}
                 >
                   {f === 'all' ? 'All' : f}
                 </button>
@@ -259,33 +258,30 @@ export const Commission: React.FC = () => {
           <div className="flex flex-wrap gap-2 p-1 bg-slate-100/50 dark:bg-slate-900/20 rounded-2xl w-fit">
             <button
               onClick={() => setActiveTab('franchise')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer border-0 ${
-                activeTab === 'franchise'
-                  ? 'bg-white dark:bg-slate-800 text-primary shadow-md'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer border-0 ${activeTab === 'franchise'
+                ? 'bg-white dark:bg-slate-800 text-primary shadow-md'
+                : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
+                }`}
             >
               <Coins size={14} />
               Franchise Commission
             </button>
             <button
               onClick={() => setActiveTab('referral')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer border-0 ${
-                activeTab === 'referral'
-                  ? 'bg-white dark:bg-slate-800 text-primary shadow-md'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer border-0 ${activeTab === 'referral'
+                ? 'bg-white dark:bg-slate-800 text-primary shadow-md'
+                : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
+                }`}
             >
               <Users size={14} />
               Referral Earnings
             </button>
             <button
               onClick={() => setActiveTab('mlm')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer border-0 ${
-                activeTab === 'mlm'
-                  ? 'bg-white dark:bg-slate-800 text-primary shadow-md'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer border-0 ${activeTab === 'mlm'
+                ? 'bg-white dark:bg-slate-800 text-primary shadow-md'
+                : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 bg-transparent'
+                }`}
             >
               <Layers size={14} />
               MLM Commission
@@ -315,11 +311,10 @@ export const Commission: React.FC = () => {
                       <td className="py-3.5 px-4 font-bold text-slate-700 dark:text-slate-300">{formatINR(tx.amount)}</td>
                       <td className="py-3.5 px-4 font-extrabold text-emerald-500">{formatINR(tx.commissionEarned)}</td>
                       <td className="py-3.5 px-4">
-                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded ${
-                          tx.status === 'Credited'
-                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                            : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                        }`}>
+                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded ${tx.status === 'Credited'
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                          : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                          }`}>
                           {tx.status}
                         </span>
                       </td>

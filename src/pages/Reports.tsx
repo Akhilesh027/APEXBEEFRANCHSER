@@ -317,8 +317,8 @@ export const Reports: React.FC = () => {
               key={tab}
               onClick={() => setReportTab(tab)}
               className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${reportTab === tab
-                  ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
-                  : 'text-slate-500 dark:text-slate-400 bg-transparent'
+                ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
+                : 'text-slate-500 dark:text-slate-400 bg-transparent'
                 }`}
             >
               {tab}
@@ -340,8 +340,8 @@ export const Reports: React.FC = () => {
               key={rep.id}
               onClick={() => setActiveReport(rep.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl border transition-all text-left cursor-pointer ${activeReport === rep.id
-                  ? 'bg-primary border-primary text-white shadow-lg shadow-primary/15'
-                  : 'bg-white dark:bg-dark-card border-slate-200/50 dark:border-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                ? 'bg-primary border-primary text-white shadow-lg shadow-primary/15'
+                : 'bg-white dark:bg-dark-card border-slate-200/50 dark:border-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                 }`}
             >
               {rep.id === 'commission' ? <FileText size={16} /> : <FileSpreadsheet size={16} />}

@@ -124,22 +124,20 @@ export const CustomersPage: React.FC = () => {
                       <td className="py-4 px-6 font-extrabold text-slate-850 dark:text-slate-100">{formatINR(c.totalSpent)}</td>
                       <td className="py-4 px-6 text-slate-400">{c.lastOrderDate}</td>
                       <td className="py-4 px-6">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
-                          isActive
-                            ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
-                            : 'bg-rose-500/10 text-rose-600 border-rose-500/20'
-                        }`}>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${isActive
+                          ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
+                          : 'bg-rose-500/10 text-rose-600 border-rose-500/20'
+                          }`}>
                           {isActive ? 'Active' : 'Suspended'}
                         </span>
                       </td>
                       <td className="py-4 px-6 text-center">
                         <button
                           onClick={() => handleToggleStatus(c.id)}
-                          className={`p-1.5 rounded-lg border transition-all cursor-pointer inline-flex items-center ${
-                            isActive
-                              ? 'bg-rose-50 dark:bg-rose-950/20 border-rose-100 text-rose-600 hover:bg-rose-100'
-                              : 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-100 text-emerald-600 hover:bg-emerald-100'
-                          }`}
+                          className={`p-1.5 rounded-lg border transition-all cursor-pointer inline-flex items-center ${isActive
+                            ? 'bg-rose-50 dark:bg-rose-950/20 border-rose-100 text-rose-600 hover:bg-rose-100'
+                            : 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-100 text-emerald-600 hover:bg-emerald-100'
+                            }`}
                           title={isActive ? 'Block Customer' : 'Unblock Customer'}
                         >
                           {isActive ? <UserX size={13} /> : <UserCheck size={13} />}

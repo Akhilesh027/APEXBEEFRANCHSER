@@ -67,15 +67,13 @@ export const NotificationsPage: React.FC = () => {
             <div
               key={notif.id}
               onClick={() => handleMarkRead(notif.id)}
-              className={`p-4 rounded-2xl border transition-all flex items-start gap-4 cursor-pointer ${
-                notif.unread
-                  ? 'bg-primary/5 border-primary/20'
-                  : 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800/20'
-              }`}
+              className={`p-4 rounded-2xl border transition-all flex items-start gap-4 cursor-pointer ${notif.unread
+                ? 'bg-primary/5 border-primary/20'
+                : 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800/20'
+                }`}
             >
-              <div className={`p-2 rounded-xl shrink-0 ${
-                notif.unread ? 'bg-primary text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-400'
-              }`}>
+              <div className={`p-2 rounded-xl shrink-0 ${notif.unread ? 'bg-primary text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-400'
+                }`}>
                 <Bell size={16} />
               </div>
               <div className="flex-1 space-y-1">

@@ -94,7 +94,7 @@ export const DeliveryPartnersPage: React.FC = () => {
         {/* List */}
         <div className="lg:col-span-2 bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl space-y-4">
           <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-base">Delivery Rider Roster</h3>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>

@@ -608,11 +608,11 @@ export const EntrepreneurPortal: React.FC = () => {
           {['Share your referral code with someone interested in becoming an ApexBee Entrepreneur.',
             'When they register using your code, they become your Level 1 referral.',
             'You earn ₹200 per successful referral registration + % of their commissions.'].map((s, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary text-white text-[11px] font-black flex items-center justify-center shrink-0">{i + 1}</div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">{s}</p>
-            </div>
-          ))}
+              <div key={i} className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-primary text-white text-[11px] font-black flex items-center justify-center shrink-0">{i + 1}</div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{s}</p>
+              </div>
+            ))}
         </div>
         {ent.referralsCount === 0 && (
           <div className="mt-5 p-4 bg-primary/5 rounded-2xl border border-primary/20 text-center">

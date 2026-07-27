@@ -110,14 +110,14 @@ export const Vendors: React.FC = () => {
       v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       v.mandal.toLowerCase().includes(searchQuery.toLowerCase()) ||
       v.category.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
     const matchesStatus = selectedStatus === 'All' || v.status === selectedStatus;
-    
+
     // If we are Mandal partner, we only see vendors belonging to our mandal
     if (role === 'mandal') {
       return v.mandal === (partner.mandal || 'Buchi Reddy Palem') && matchesSearch && matchesStatus;
     }
-    
+
     return matchesSearch && matchesStatus;
   });
 
@@ -180,33 +180,29 @@ export const Vendors: React.FC = () => {
         <div className="flex gap-1.5 bg-slate-100 dark:bg-slate-900/40 p-1 rounded-2xl border border-slate-200/30 dark:border-slate-800/30 shrink-0">
           <button
             onClick={() => setActiveTab('active')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${
-              activeTab === 'active' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
-            }`}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${activeTab === 'active' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
+              }`}
           >
             Active
           </button>
           <button
             onClick={() => setActiveTab('applications')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${
-              activeTab === 'applications' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
-            }`}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${activeTab === 'applications' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
+              }`}
           >
             Applications
           </button>
           <button
             onClick={() => setActiveTab('kyc')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${
-              activeTab === 'kyc' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
-            }`}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${activeTab === 'kyc' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
+              }`}
           >
             KYC Logs
           </button>
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${
-              activeTab === 'analytics' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
-            }`}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${activeTab === 'analytics' ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 bg-transparent'
+              }`}
           >
             Analytics
           </button>
@@ -233,11 +229,10 @@ export const Vendors: React.FC = () => {
                 <button
                   key={s}
                   onClick={() => setSelectedStatus(s)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${
-                    selectedStatus === s
-                      ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
-                      : 'text-slate-500 dark:text-slate-400 bg-transparent'
-                  }`}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${selectedStatus === s
+                    ? 'bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 bg-transparent'
+                    }`}
                 >
                   {s}
                 </button>
@@ -420,9 +415,8 @@ export const Vendors: React.FC = () => {
                       <td className="py-4 px-6">{getVerificationIcon(log.bank)}</td>
                       <td className="py-4 px-6">{getVerificationIcon(log.gst)}</td>
                       <td className="py-4 px-6">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                          isComplete ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600'
-                        }`}>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${isComplete ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600'
+                          }`}>
                           {isComplete ? 'Verified Document Base' : 'Pending Document Audits'}
                         </span>
                       </td>

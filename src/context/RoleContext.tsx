@@ -93,10 +93,10 @@ const normalizeEntrepreneur = (e: any): Entrepreneur => ({
   district: e.district || '',
   mandal: e.mandal || '',
   village: e.village || '',
-  mentor: e.mentor || 
+  mentor: e.mentor ||
     (e.parentFranchiseId && typeof e.parentFranchiseId === 'object'
       ? (e.parentFranchiseId.ownerName || e.parentFranchiseId.businessName)
-      : null) || 
+      : null) ||
     'Unassigned',
   bankDetails: e.bankDetails || {
     accountHolderName: "",
@@ -281,7 +281,7 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
       let loggedInUser: any = null;
       try {
         loggedInUser = JSON.parse(userStr || 'null');
-      } catch {}
+      } catch { }
 
       if (loggedInUser && loggedInUser._id) {
         fetch(`https://server.apexbee.in/api/notifications/user/${loggedInUser._id}`, { headers })
@@ -350,7 +350,7 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
           };
 
           const normEnt = normalizeEntrepreneur(mergedEntrepreneur);
-          
+
           if (walletObj) {
             normEnt.walletBalance = walletObj.balance;
             normEnt.pendingBalance = walletObj.pending;
@@ -453,7 +453,7 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (rawFranchise) {
           const level = rawFranchise.franchiseLevel;
           const fallbackPartner = currentPartners[level as 'state' | 'district' | 'mandal'];
-          
+
           setPartner({
             id: rawFranchise.franchiseCode || rawFranchise._id,
             name: rawFranchise.ownerName || fallbackPartner.name,
@@ -640,13 +640,13 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
         body: JSON.stringify({ amount, bankAccount })
       })
-      .then(res => {
-        if (res.ok) {
-          const savedRole = localStorage.getItem('apexbee_role') as RoleType;
-          if (savedRole) fetchBackendData(savedRole);
-        }
-      })
-      .catch(err => console.error('Withdrawal error:', err));
+        .then(res => {
+          if (res.ok) {
+            const savedRole = localStorage.getItem('apexbee_role') as RoleType;
+            if (savedRole) fetchBackendData(savedRole);
+          }
+        })
+        .catch(err => console.error('Withdrawal error:', err));
     }
 
     return true;
@@ -682,13 +682,13 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
           },
           body: JSON.stringify({ subject, category, priority, description })
         })
-        .then(res => res.json())
-        .then(data => {
-          if (!data.success) {
-            console.warn('Support ticket backend response:', data.message);
-          }
-        })
-        .catch(err => console.error('Error creating support ticket:', err));
+          .then(res => res.json())
+          .then(data => {
+            if (!data.success) {
+              console.warn('Support ticket backend response:', data.message);
+            }
+          })
+          .catch(err => console.error('Error creating support ticket:', err));
       }
     }
   };

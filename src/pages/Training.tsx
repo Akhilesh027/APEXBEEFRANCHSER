@@ -92,11 +92,10 @@ export const TrainingPage: React.FC = () => {
                 <div
                   key={vid.id}
                   onClick={() => setSelectedVideo(vid)}
-                  className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center gap-3 ${
-                    selectedVideo.id === vid.id
-                      ? 'bg-primary/5 border-primary text-primary'
-                      : 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800/20 text-slate-700 dark:text-slate-300 hover:border-primary/20'
-                  }`}
+                  className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center gap-3 ${selectedVideo.id === vid.id
+                    ? 'bg-primary/5 border-primary text-primary'
+                    : 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800/20 text-slate-700 dark:text-slate-300 hover:border-primary/20'
+                    }`}
                 >
                   <PlayCircle size={20} className="shrink-0" />
                   <div className="flex flex-col">

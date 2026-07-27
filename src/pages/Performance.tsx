@@ -85,7 +85,7 @@ export const PerformancePage: React.FC = () => {
         {/* Targets List */}
         <div className="lg:col-span-2 bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl space-y-5">
           <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-base">Current Acquisition Quotas</h3>
-          
+
           <div className="space-y-4">
             {targets.map(t => {
               const cpct = Math.round((t.achieved / t.target) * 100);
@@ -110,7 +110,7 @@ export const PerformancePage: React.FC = () => {
         <div className="lg:col-span-1 bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div>
             <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-base mb-4">Target Completion Trend</h3>
-            
+
             <div className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={historyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
