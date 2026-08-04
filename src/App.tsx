@@ -41,7 +41,42 @@ const AppContent: React.FC = () => {
   }
 
   if (role === 'entrepreneur') {
-    return <EntrepreneurPortal />;
+    return (
+      <div className="min-h-screen w-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-dark text-slate-800 dark:text-slate-100 p-6 relative overflow-hidden">
+        {/* Background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
+
+        <div className="max-w-md w-full text-center space-y-5 bg-white/70 dark:bg-dark-card/70 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 p-8 rounded-[32px] shadow-2xl relative z-10">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto shadow-inner text-2xl font-black">
+            🚀
+          </div>
+
+          <div className="space-y-2">
+            <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+              Coming Soon
+            </span>
+            <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100">Entrepreneur Portal</h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              We are enhancing the Ecosystem Entrepreneur & Partner Portal. Access for this section is launching soon!
+            </p>
+          </div>
+
+          <div className="pt-3 border-t border-slate-200/60 dark:border-slate-800/60">
+            <button
+              onClick={() => {
+                localStorage.removeItem('apexbee_auth');
+                localStorage.removeItem('apexbee_role');
+                localStorage.removeItem('apexbee_ent_id');
+                window.location.reload();
+              }}
+              className="w-full py-3.5 rounded-2xl bg-primary text-white font-extrabold text-xs shadow-lg shadow-primary/25 hover:bg-blue-600 transition-all cursor-pointer"
+            >
+              Return to Main Login
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

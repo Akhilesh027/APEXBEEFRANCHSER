@@ -288,28 +288,15 @@ export const Header: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Switch Perspective */}
+                  {/* Territory & Role Info Badge */}
                   <div className="px-3 py-2 border-b border-slate-200/50 dark:border-slate-800/50">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Switch Perspective</span>
-                  </div>
-                  <div className="mt-1.5 space-y-1">
-                    {(['state', 'district', 'mandal'] as const).map((r) => (
-                      <button
-                        key={r}
-                        onClick={() => handleRoleSelect(r)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left text-xs font-semibold cursor-pointer transition-colors ${role === r
-                          ? 'bg-primary text-white'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60'
-                          }`}
-                      >
-                        <span className="capitalize">{r} Partner</span>
-                        {role !== r && (
-                          <span className={`text-[9px] px-1.5 py-0.5 rounded-md border ${getRoleBadgeColor(r)}`}>
-                            Select
-                          </span>
-                        )}
-                      </button>
-                    ))}
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Assigned Territory</span>
+                    <div className="mt-1 p-2 rounded-xl bg-slate-100/70 dark:bg-slate-800/70 border border-slate-200/60 dark:border-slate-800/60 text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between">
+                      <span className="capitalize">{role} Partner</span>
+                      <span className={`text-[9px] px-2 py-0.5 rounded-full font-extrabold border ${getRoleBadgeColor(role)}`}>
+                        {partner.mandal || partner.district || partner.state || 'Territory Active'}
+                      </span>
+                    </div>
                   </div>
                   <div className="mt-1.5 space-y-1 border-t border-slate-200/50 dark:border-slate-800/50 pt-1.5">
                     {availablePortals.length > 1 && (

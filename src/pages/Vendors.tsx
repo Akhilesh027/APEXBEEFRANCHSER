@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRole } from '../context/RoleContext';
 import type { Vendor } from '../types';
 import {
@@ -33,16 +33,21 @@ export const Vendors: React.FC = () => {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
-      const res = await fetch('https://server.apexbee.in/api/franchise/applications', {
+      const res = await fetch('https://server.apexbee.in/api/franchise/applications?type=vendor', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
         const data = await res.json();
         if (data.success && data.applications) {
-          const formatted = data.applications.map((app: any) => ({
+          const vendorOnlyApps = data.applications.filter((app: any) => {
+            const roleStr = (app.applicationType || app.role || '').toLowerCase();
+            return roleStr.includes('vendor') || roleStr.includes('merchant') || roleStr.includes('store');
+          });
+
+          const formatted = vendorOnlyApps.map((app: any) => ({
             id: app._id,
             name: app.businessName,
-            category: app.serviceType || app.applicationType || 'General',
+            category: app.primaryCategory || app.serviceType || app.applicationType || 'General Store',
             contact: app.ownerName,
             phone: app.mobile,
             mandal: app.mandal || 'N/A',
@@ -57,16 +62,23 @@ export const Vendors: React.FC = () => {
     }
   };
 
+  const handleApproval = async (appId: string, action: 'Approve' | 'Reject') => {
+    try {
+      const status = action === 'Approve' ? 'approved' : 'rejected';
+      await fetch(`https://server.apexbee.in/api/franchise/applications/${appId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      setApplications(prev => prev.filter(a => a.id !== appId));
+    } catch (err) {
+      console.error('Error updating application approval:', err);
+    }
+  };
+
   useEffect(() => {
     fetchApplications();
   }, []);
-
-  const [kycLogs] = useState([
-    { id: 'KYC-V01', name: 'ABC Mobiles', district: 'Nellore', pan: 'Verified', aadhaar: 'Verified', bank: 'Verified', gst: 'Verified' },
-    { id: 'KYC-V02', name: 'Fresh Mart', district: 'Nellore', pan: 'Verified', aadhaar: 'Verified', bank: 'Verified', gst: 'Verified' },
-    { id: 'KYC-V03', name: 'Sai Ram Fancy', district: 'Nellore', pan: 'Verified', aadhaar: 'Verified', bank: 'Pending', gst: 'Pending' },
-    { id: 'KYC-V04', name: 'SLV Enterprises', district: 'Nellore', pan: 'Verified', aadhaar: 'Pending', bank: 'Pending', gst: 'Pending' }
-  ]);
 
   // Format currency
   const formatINR = (value: number) => {
@@ -75,33 +87,6 @@ export const Vendors: React.FC = () => {
       currency: 'INR',
       maximumFractionDigits: 0
     }).format(value);
-  };
-
-  // Onboarding approval action
-  const handleApproval = async (id: string, action: 'Approve' | 'Reject') => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-    try {
-      const res = await fetch(`https://server.apexbee.in/api/franchise/applications/${id}/action`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ action, adminRemarks: `${action}d by franchise` })
-      });
-      if (res.ok) {
-        setApplications(prev => prev.filter(app => app.id !== id));
-        alert(`Vendor Application has been successfully ${action === 'Approve' ? 'Approved & Onboarded' : 'Rejected'}.`);
-        setRole(role); // Refresh database context team arrays
-      } else {
-        const errorData = await res.json();
-        alert(`Error: ${errorData.message}`);
-      }
-    } catch (err) {
-      console.error('Error handling application approval:', err);
-      alert('Network error handling application');
-    }
   };
 
   // Filter vendors based on search, status, and role perspective
@@ -120,6 +105,52 @@ export const Vendors: React.FC = () => {
 
     return matchesSearch && matchesStatus;
   });
+
+  // Dynamically calculate KYC logs from active DB vendor records
+  const kycLogs = useMemo(() => {
+    if (!filteredVendors || filteredVendors.length === 0) return [];
+    return filteredVendors.map((v, index) => {
+      const isVer = v.status === 'Active' || (v as any).kycStatus === 'verified';
+      return {
+        id: `KYC-V${String(index + 1).padStart(2, '0')}`,
+        name: v.name,
+        district: v.mandal ? `${v.mandal} Mandal` : (partner?.district || partner?.state || 'Territory'),
+        pan: isVer ? 'Verified' : 'Pending',
+        aadhaar: isVer ? 'Verified' : 'Pending',
+        bank: isVer ? 'Verified' : 'Pending',
+        gst: isVer || (v as any).gstin ? 'Verified' : 'Pending',
+      };
+    });
+  }, [filteredVendors, partner]);
+
+  // Dynamically calculate analytics from real vendor metrics
+  const analyticsData = useMemo(() => {
+    if (!filteredVendors || filteredVendors.length === 0) {
+      return {
+        avgRating: "0.0",
+        topVendorName: "None",
+        topVendorDesc: "No active vendor sales recorded yet.",
+        velocityCount: "+0",
+        velocityDesc: `No registered vendor stores in ${partner?.district || partner?.state || 'this'} territory.`
+      };
+    }
+
+    const totalRating = filteredVendors.reduce((sum, v) => sum + (v.rating || 0), 0);
+    const avg = (totalRating / filteredVendors.length).toFixed(1);
+
+    const sortedBySales = [...filteredVendors].sort((a, b) => (b.sales || 0) - (a.sales || 0));
+    const top = sortedBySales[0];
+
+    return {
+      avgRating: avg,
+      topVendorName: top ? top.name : "None",
+      topVendorDesc: top
+        ? `Highest revenue generator contributing ${formatINR(top.sales || 0)} across ${top.orders || 0} orders.`
+        : "No vendor sales recorded yet.",
+      velocityCount: `+${filteredVendors.length}`,
+      velocityDesc: `Registered merchant shop-owners and service providers in ${partner?.district || partner?.state || 'assigned'} territory.`
+    };
+  }, [filteredVendors, partner]);
 
   const getStatusBadge = (status: Vendor['status']) => {
     if (status === 'Active') {
@@ -435,39 +466,39 @@ export const Vendors: React.FC = () => {
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Average Network Rating</span>
-                <h3 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">4.4 / 5.0</h3>
+                <h3 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{analyticsData.avgRating} / 5.0</h3>
               </div>
               <div className="p-2.5 rounded-2xl bg-amber-500/10 text-amber-500">
                 <Star size={20} fill="currentColor" />
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 mt-4">Calculated across all active electronic, retail, and grocery vendor store nodes.</p>
+            <p className="text-[10px] text-slate-400 mt-4">Calculated across all active store nodes in your territory.</p>
           </div>
 
           <div className="bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-lg flex flex-col justify-between">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Top Performing Vendor</span>
-                <h3 className="text-lg font-extrabold text-slate-800 dark:text-slate-100">ABC Mobiles</h3>
+                <h3 className="text-lg font-extrabold text-slate-800 dark:text-slate-100">{analyticsData.topVendorName}</h3>
               </div>
               <div className="p-2.5 rounded-2xl bg-primary/10 text-primary">
                 <TrendingUp size={20} />
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 mt-4">Highest revenue generator this month contributing ₹1,10,000 in retail mobile sales.</p>
+            <p className="text-[10px] text-slate-400 mt-4">{analyticsData.topVendorDesc}</p>
           </div>
 
           <div className="bg-white dark:bg-dark-card border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-lg flex flex-col justify-between">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Onboarding Velocity</span>
-                <h3 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">+4 This Week</h3>
+                <h3 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{analyticsData.velocityCount} Active</h3>
               </div>
               <div className="p-2.5 rounded-2xl bg-emerald-500/10 text-emerald-600">
                 <UserCheck size={20} />
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 mt-4">Newly registered merchant shop-owners and service providers in {partner.district || 'Nellore'} district.</p>
+            <p className="text-[10px] text-slate-400 mt-4">{analyticsData.velocityDesc}</p>
           </div>
         </div>
       )}

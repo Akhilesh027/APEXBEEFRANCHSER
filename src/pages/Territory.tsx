@@ -236,9 +236,9 @@ export const TerritoryPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {filteredDistricts.map((district: string) => {
-                const distMandals = territoryDetails?.mandals?.filter((m: any) => m.district === district) || [];
+                const distMandals = territoryDetails?.mandals?.filter((m: any) => (m.district || "").toLowerCase() === district.toLowerCase()) || [];
                 const filteredMandals = distMandals.filter((m: any) =>
-                  m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  (m.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
                   district.toLowerCase().includes(searchQuery.toLowerCase())
                 );
                 const isExpanded = !!expandedDistricts[district];

@@ -124,12 +124,25 @@ export const NetworkTree: React.FC<{ data?: any }> = ({ data }) => {
     );
 
     stateNode.children = districts.map((district: any) => {
-      const districtNode: NodeItem = {
-        id: `district-${district}`,
-        name: district,
-        type: "district",
-        children: [],
-      };
+      const distChildren: NodeItem[] = [];
+
+      // Add child district franchises matching this district
+      if (Array.isArray(backendData.children)) {
+        backendData.children
+          .filter((c: any) => (c.level === "district" || c.type === "district") && normalize(c.district) === normalize(district))
+          .forEach((child: any) => {
+            distChildren.push({
+              id: String(child.id || child._id),
+              name: `${child.title || child.businessName || child.ownerName} (District Franchise)`,
+              type: "franchise" as const,
+              ownerName: child.ownerName,
+              status: child.status,
+              franchiseCode: child.franchiseCode,
+              email: child.email,
+              mobile: child.mobile,
+            });
+          });
+      }
 
       const mandals = Array.from(
         new Set(
@@ -144,15 +157,29 @@ export const NetworkTree: React.FC<{ data?: any }> = ({ data }) => {
         )
       );
 
-      districtNode.children = mandals.map((mandal: any) => {
-        const mandalNode: NodeItem = {
-          id: `mandal-${district}-${mandal}`,
-          name: mandal,
-          type: "mandal",
-          children: [],
-        };
+      const mandalNodes: NodeItem[] = mandals.map((mandal: any) => {
+        const mandalChildren: NodeItem[] = [];
 
-        mandalNode.children = territories
+        // Add child mandal franchises matching this mandal
+        if (Array.isArray(backendData.children)) {
+          backendData.children
+            .filter((c: any) => (c.level === "mandal" || c.type === "mandal") && normalize(c.district) === normalize(district) && normalize(c.mandal) === normalize(mandal))
+            .forEach((child: any) => {
+              mandalChildren.push({
+                id: String(child.id || child._id),
+                name: `${child.title || child.businessName || child.ownerName} (Mandal Franchise)`,
+                type: "franchise" as const,
+                ownerName: child.ownerName,
+                status: child.status,
+                franchiseCode: child.franchiseCode,
+                email: child.email,
+                mobile: child.mobile,
+              });
+            });
+        }
+
+        // Add pincodes under this mandal
+        const pins = territories
           .filter(
             (t: any) =>
               getLevel(t) === "Pincode" &&
@@ -166,27 +193,65 @@ export const NetworkTree: React.FC<{ data?: any }> = ({ data }) => {
             status: pin.status,
           }));
 
-        return mandalNode;
+        mandalChildren.push(...pins);
+
+        // Add child entrepreneurs under this mandal
+        if (Array.isArray(backendData.children)) {
+          backendData.children
+            .filter((c: any) => (c.type === "entrepreneur" || c.level === "entrepreneur") && normalize(c.mandal) === normalize(mandal))
+            .forEach((ent: any) => {
+              mandalChildren.push({
+                id: String(ent.id || ent._id),
+                name: `${ent.title || ent.ownerName || ent.name} (Entrepreneur)`,
+                type: "entrepreneur" as const,
+                ownerName: ent.ownerName || ent.name,
+                status: ent.status,
+                franchiseCode: ent.franchiseCode,
+                email: ent.email,
+                mobile: ent.mobile,
+              });
+            });
+        }
+
+        return {
+          id: `mandal-${district}-${mandal}`,
+          name: mandal,
+          type: "mandal" as const,
+          children: mandalChildren,
+        };
       });
 
-      return districtNode;
+      return {
+        id: `district-${district}`,
+        name: district,
+        type: "district" as const,
+        children: [...distChildren, ...mandalNodes],
+      };
     });
 
     root.children = [stateNode];
 
+    // Any unplaced top-level partner nodes
     if (Array.isArray(backendData.children)) {
-      root.children.push(
-        ...backendData.children.map((child: any) => ({
-          id: String(child.id || child._id),
-          name: child.title || child.businessName || child.ownerName || "Franchise",
-          type: "franchise" as const,
-          ownerName: child.ownerName,
-          status: child.status,
-          franchiseCode: child.franchiseCode,
-          email: child.email,
-          mobile: child.mobile,
-        }))
-      );
+      const unassignedPartners = backendData.children.filter((c: any) => {
+        if (!c.district && !c.mandal) return true;
+        return false;
+      });
+
+      if (unassignedPartners.length > 0) {
+        root.children.push(
+          ...unassignedPartners.map((child: any) => ({
+            id: String(child.id || child._id),
+            name: child.title || child.businessName || child.ownerName || "Partner",
+            type: "franchise" as const,
+            ownerName: child.ownerName,
+            status: child.status,
+            franchiseCode: child.franchiseCode,
+            email: child.email,
+            mobile: child.mobile,
+          }))
+        );
+      }
     }
 
     return root;
