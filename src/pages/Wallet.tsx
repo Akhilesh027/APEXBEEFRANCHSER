@@ -6,13 +6,15 @@ import { motion } from 'framer-motion';
 export const WalletPage: React.FC = () => {
   const { partner, transactions } = useRole();
 
-  // Format currency
+  // Format currency with exact decimal precision
   const formatINR = (value: number) => {
+    const num = Number(value || 0);
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(value);
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(num);
   };
 
   // Calculate dynamic balances from transaction categories

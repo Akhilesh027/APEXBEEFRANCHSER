@@ -53,11 +53,13 @@ export const Reports: React.FC = () => {
   }, [activeReport, reportTab]);
 
   const formatINR = (value: number) => {
+    const num = Number(value || 0);
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(value);
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(num);
   };
 
   const handleExport = (type: 'PDF' | 'Excel' | 'CSV') => {

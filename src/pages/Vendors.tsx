@@ -80,13 +80,15 @@ export const Vendors: React.FC = () => {
     fetchApplications();
   }, []);
 
-  // Format currency
+  // Format currency with exact decimals
   const formatINR = (value: number) => {
+    const num = Number(value || 0);
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(value);
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(num);
   };
 
   // Filter vendors based on search, status, and role perspective

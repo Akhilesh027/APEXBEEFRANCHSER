@@ -16,7 +16,7 @@ import {
 
 // ─── helpers ───────────────────────────────────────────────────────────────
 const fmt = (v: number) =>
-  new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(v);
+  new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(v || 0));
 const pct = (a: number, b: number) => (b === 0 ? 0 : Math.min(100, Math.round((a / b) * 100)));
 
 const barColor = (p: number) => p >= 80 ? 'bg-emerald-500' : p >= 50 ? 'bg-amber-500' : 'bg-rose-500';

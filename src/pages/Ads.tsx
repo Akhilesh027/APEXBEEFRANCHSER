@@ -14,13 +14,15 @@ export const AdsPage: React.FC = () => {
   const [type, setType] = useState<AdCampaign['type']>('Banner');
   const [budget, setBudget] = useState('');
 
-  // Format currency
+  // Format currency with exact decimals
   const formatINR = (value: number) => {
+    const num = Number(value || 0);
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(value);
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(num);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
