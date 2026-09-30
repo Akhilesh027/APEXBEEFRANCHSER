@@ -13,6 +13,7 @@ import {
   Phone,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { PendingFranchiseFeesCard } from "../components/PendingFranchiseFeesCard";
 
 const API = "https://server.apexbee.in/api";
 
@@ -133,6 +134,7 @@ export const TerritoryPage: React.FC = () => {
       transition={{ duration: 0.3 }}
       className="space-y-6"
     >
+      <PendingFranchiseFeesCard />
       {/* Dynamic Render based on franchise level */}
       {level === "state" && (
         <div className="space-y-6">
