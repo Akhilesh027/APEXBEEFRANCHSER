@@ -44,7 +44,10 @@ export const ReferralPage: React.FC = () => {
     ])
       .then(([codeData, statsData, historyData, networkData]) => {
         if (codeData.success) {
-          setReferralLink(`http://localhost:5173/register?ref=${codeData.referralCode}`);
+          const link = (codeData.referralLink && !codeData.referralLink.includes('localhost'))
+            ? codeData.referralLink
+            : `https://apexbee.in/register?ref=${codeData.referralCode}`;
+          setReferralLink(link);
         }
         if (statsData.success) {
           setStats({
